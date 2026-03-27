@@ -63,7 +63,7 @@
 						"enable": true,
 					},
 				},
-				"checkOnSave": false,
+				"checkOnSave": true,
 				"cargo": {
 					"allTargets": false,
 				},

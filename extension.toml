@@ -3,7 +3,7 @@ name = "Convex DevTools MCP for Zed Editor"
 version = "0.1.0"
 schema_version = 1
 authors = ["hreffdev<haikelareff@gmail.com>"]
-description = "Convex Database and backend development tools and utilities MCP server"
+description = "Convex backend development tools and utilities MCP server"
 repository = "https://github.com/hreffdev/zed-convex-mcp"
 
 [context_servers.mcp-server-convex]

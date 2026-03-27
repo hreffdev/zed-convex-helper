@@ -1,4 +1,4 @@
 # Zed-Convex-MCP
 
 
-## Convex LSP for Autocompletions
+## Convex MCP Workers for Zed Editors.
