@@ -4,17 +4,17 @@
 			"settings": {
 				"experimental": {
 					"classRegex": [
-						"\\.className\\s*[+]?=\\s*['\"]([^'\"]*)['\"]",
-						"\\.setAttributeNS\\(.*,\\s*['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
-						"\\.setAttribute\\(['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
-						"\\.classList\\.add\\(['\"]([^'\"]*)['\"]",
-						"\\.classList\\.remove\\(['\"]([^'\"]*)['\"]",
-						"\\.classList\\.toggle\\(['\"]([^'\"]*)['\"]",
-						"\\.classList\\.contains\\(['\"]([^'\"]*)['\"]",
-						"\\.classList\\.replace\\(\\s*['\"]([^'\"]*)['\"]",
-						"\\.classList\\.replace\\([^,)]+,\\s*['\"]([^'\"]*)['\"]"
-					]
-				}
+						"\\.className\\s*[+]?=\\s*['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.setAttributeNS\\(.*,\\s*['\\\"]class['\\\"],\\s*['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.setAttribute\\(['\\\"]class['\\\"],\\s*['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.add\\(['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.remove\\(['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.toggle\\(['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.contains\\(['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.replace\\(\\s*['\\\"]([^'\\\"]*)['\\\"]",
+						"\\.classList\\.replace\\([^,)]+,\\s*['\\\"]([^'\\\"]*)['\\\"]",
+					],
+				},
 			},
 			"initialization_options": {
 				"preferences": {
@@ -25,23 +25,23 @@
 					"includeInlayVariableTypeHintsWhenTypeMatchesName": true,
 					"includeInlayPropertyDeclarationTypeHints": true,
 					"includeInlayFunctionLikeReturnTypeHints": true,
-					"includeInlayEnumMemberValueHints": true
-				}
-			}
+					"includeInlayEnumMemberValueHints": true,
+				},
+			},
 		},
 		"vtsls": {
 			"settings": {
 				"typescript": {
 					"tsserver": {
-						"maxTsServerMemory": 500
-					}
+						"maxTsServerMemory": 500,
+					},
 				},
 				"javascript": {
 					"tsserver": {
-						"maxTsServerMemory": 500
-					}
-				}
-			}
+						"maxTsServerMemory": 500,
+					},
+				},
+			},
 		},
 		"rust-analyzer": {
 			"initialization_options": {
@@ -49,84 +49,72 @@
 					"maxLength": null,
 					"lifetimeElisionHints": {
 						"enable": "skip_trivial",
-						"useParameterNames": true
+						"useParameterNames": true,
 					},
 					"closureReturnTypeHints": {
-						"enable": "always"
-					}
+						"enable": "always",
+					},
 				},
 				"rust": {
-					"analyzerTargetDir": true
+					"analyzerTargetDir": true,
 				},
 				"diagnostics": {
 					"experimental": {
-						"enable": true
-					}
+						"enable": true,
+					},
 				},
-				"checkOnSave": true,
+				"checkOnSave": false,
 				"cargo": {
-					"allTargets": false
+					"allTargets": false,
 				},
 				"check": {
-					"workspace": true
+					"workspace": true,
 				},
 				"completion": {
 					"snippets": {
 						"custom": {
 							"Arc::new": {
 								"postfix": "arc",
-								"body": [
-									"Arc::new(${receiver})"
-								],
+								"body": ["Arc::new(${receiver})"],
 								"requires": "std::sync::Arc",
-								"scope": "expr"
+								"scope": "expr",
 							},
 							"Some": {
 								"postfix": "some",
-								"body": [
-									"Some(${receiver})"
-								],
-								"scope": "expr"
+								"body": ["Some(${receiver})"],
+								"scope": "expr",
 							},
 							"Ok": {
 								"postfix": "ok",
-								"body": [
-									"Ok(${receiver})"
-								],
-								"scope": "expr"
+								"body": ["Ok(${receiver})"],
+								"scope": "expr",
 							},
 							"Rc::new": {
 								"postfix": "rc",
-								"body": [
-									"Rc::new(${receiver})"
-								],
+								"body": ["Rc::new(${receiver})"],
 								"requires": "std::rc::Rc",
-								"scope": "expr"
+								"scope": "expr",
 							},
 							"Box::pin": {
 								"postfix": "boxpin",
-								"body": [
-									"Box::pin(${receiver})"
-								],
+								"body": ["Box::pin(${receiver})"],
 								"requires": "std::boxed::Box",
-								"scope": "expr"
+								"scope": "expr",
 							},
 							"vec!": {
 								"postfix": "vec",
-								"body": [
-									"vec![${receiver}]"
-								],
+								"body": ["vec![${receiver}]"],
 								"description": "vec![]",
-								"scope": "expr"
-							}
-						}
-					}
-				}
+								"scope": "expr",
+							},
+						},
+					},
+				},
 			},
 			"fetch": {
-				"pre_release": true
+				"pre_release": true,
 			},
-			"enable_lsp_tasks": true
-		}
-	}
+			"enable_lsp_tasks": true,
+		},
+	},
 }

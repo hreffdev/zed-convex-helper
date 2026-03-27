@@ -1,4 +1,4 @@
-# zed-convex-helper
+# Zed-Convex-MCP
 
 
 ## Convex LSP for Autocompletions

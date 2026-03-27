@@ -3,8 +3,19 @@ name = "zed-convex-helper"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+path = "src/mcp.rs"
+crate-type = ["cdylib"]
+
 [dependencies]
+tokio = { version = "1.44", features = [
+    "fs",
+    "io-std",
+    "sync",
+    "rt-multi-thread",
+] }
 tower-lsp = "0.20.0"
-serde = {version = "1.0.228", features = "derive"}
+serde = {version = "1.0.228", features = ["derive"]}
 serde_json ="1.0.149"
 webbrowser = "1.2.0"
+zed_extension_api = "0.7.0"
