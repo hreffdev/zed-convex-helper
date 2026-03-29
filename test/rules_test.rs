@@ -1,5 +1,5 @@
-use convex_doctor::diagnostic::Category;
-use convex_doctor::rules::{ConvexFunction, FunctionKind, ProjectContext, RuleRegistry};
+use convex_analyzer::diagnostic::Category;
+use convex_analyzer::rules::{ConvexFunction, FunctionKind, ProjectContext, RuleRegistry};
 
 #[test]
 fn test_registry_has_all_categories() {

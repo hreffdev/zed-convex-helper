@@ -1,6 +1,6 @@
-use convex_doctor::diagnostic::Severity;
-use convex_doctor::rules::architecture::*;
-use convex_doctor::rules::{
+use convex_analyzer::diagnostic::Severity;
+use convex_analyzer::rules::architecture::*;
+use convex_analyzer::rules::{
     CallLocation, ConvexFunction, CtxCall, FileAnalysis, FunctionKind, Rule,
 };
 

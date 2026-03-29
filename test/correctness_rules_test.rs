@@ -1,8 +1,8 @@
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::correctness::*;
 use std::path::Path;
 use tempfile::TempDir;
-use zed_convex::rules::Rule;
-use zed_convex::rules::context::analyze_file;
-use zed_convex::rules::correctness::*;
 
 #[test]
 fn test_unwaited_promise() {

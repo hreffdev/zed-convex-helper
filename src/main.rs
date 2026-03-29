@@ -5,9 +5,9 @@ use std::time::Instant;
 
 use clap::{Parser, ValueEnum};
 
-use zed_convex::reporter::Reporter;
-use zed_convex::reporter::cli::CliReporter;
-use zed_convex::reporter::json::JsonReporter;
+use convex_analyzer::reporter::Reporter;
+use convex_analyzer::reporter::cli::CliReporter;
+use convex_analyzer::reporter::json::JsonReporter;
 
 #[derive(Clone, Debug, ValueEnum)]
 enum OutputFormat {
@@ -17,9 +17,9 @@ enum OutputFormat {
 
 #[derive(Parser)]
 #[command(
-    name = "zed-convex",
+    name = "convex-analyzer",
     version,
-    about = "Diagnose your Convex backend in Zed editor"
+    about = "Analayzer Tools for your Convex functions"
 )]
 struct Cli {
     /// Path to the project root (defaults to current directory)
@@ -47,7 +47,7 @@ fn main() {
     let cli = Cli::parse();
 
     let start = Instant::now();
-    let result = match zed_convex::engine::run(&cli.path, cli.verbose, cli.diff.as_deref()) {
+    let result = match convex_analyzer::engine::run(&cli.path, cli.verbose, cli.diff.as_deref()) {
         Ok(r) => r,
         Err(e) => {
             eprintln!("Error: {e}");
@@ -58,7 +58,7 @@ fn main() {
 
     if cli.score {
         let mut stdout = io::stdout();
-        let output = zed_convex::reporter::score_only(&result.scoring);
+        let output = convex_analyzer::reporter::score_only(&result.scoring);
         stdout
             .write_all(output.as_bytes())
             .expect("failed to write score output");

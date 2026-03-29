@@ -1,7 +1,7 @@
-use convex_doctor::diagnostic::Severity;
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::schema::*;
-use convex_doctor::rules::{ProjectContext, Rule};
+use convex_analyzer::diagnostic::Severity;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::schema::*;
+use convex_analyzer::rules::{ProjectContext, Rule};
 use std::path::Path;
 use tempfile::TempDir;
 
@@ -268,7 +268,7 @@ export const fields = {
 
 #[test]
 fn test_missing_index_for_query_no_indexes_with_filter_fields() {
-    use convex_doctor::rules::FilterField;
+    use convex_analyzer::rules::FilterField;
     let rule = MissingIndexForQuery;
     let ctx = ProjectContext {
         has_schema: true,
@@ -310,7 +310,7 @@ fn test_missing_index_for_query_has_indexes() {
     let rule = MissingIndexForQuery;
     let ctx = ProjectContext {
         has_schema: true,
-        all_index_definitions: vec![convex_doctor::rules::IndexDef {
+        all_index_definitions: vec![convex_analyzer::rules::IndexDef {
             table: "users".to_string(),
             name: "by_email".to_string(),
             fields: vec!["email".to_string()],
@@ -339,7 +339,7 @@ fn test_missing_index_for_query_no_schema() {
 
 #[test]
 fn test_missing_index_for_query_with_filter_fields() {
-    use convex_doctor::rules::{FilterField, IndexDef};
+    use convex_analyzer::rules::{FilterField, IndexDef};
     let rule = MissingIndexForQuery;
     let ctx = ProjectContext {
         has_schema: true,

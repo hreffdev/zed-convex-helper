@@ -1,4 +1,4 @@
-use convex_doctor::rules::context::analyze_file;
+use convex_analyzer::rules::context::analyze_file;
 use std::path::Path;
 
 #[test]

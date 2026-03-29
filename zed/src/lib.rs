@@ -1,8 +1,8 @@
 use zed_extension_api as zed;
 
-struct ConvexMcpDevExtension;
+struct ZedConvexDevExtension;
 
-impl zed::Extension for ConvexMcpDevExtension {
+impl zed::Extension for ZedConvexDevExtension {
     fn new() -> Self {
         Self
     }
@@ -16,10 +16,10 @@ impl zed::Extension for ConvexMcpDevExtension {
 
         Ok(zed::Command {
             command: bunx_path,
-            args: vec!["-y".to_string(), "zed-convex-mcp@latest".to_string()],
+            args: vec!["-y".to_string(), "convex_analyzer@latest".to_string()],
             env: std::env::vars().collect(),
         })
     }
 }
 
-zed::register_extension!(ConvexMcpDevExtension);
+zed::register_extension!(ZedConvexDevExtension);

@@ -1,5 +1,5 @@
-use convex_doctor::config::Config;
-use convex_doctor::diagnostic::{Category, Diagnostic, Severity};
+use convex_analyzer::config::Config;
+use convex_analyzer::diagnostic::{Category, Diagnostic, Severity};
 use std::path::Path;
 use tempfile::TempDir;
 

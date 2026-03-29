@@ -2,7 +2,7 @@ use std::process::Command;
 
 #[test]
 fn test_invalid_format_is_rejected() {
-    let output = Command::new(env!("CARGO_BIN_EXE_convex-doctor"))
+    let output = Command::new(env!("CARGO_BIN_EXE_convex-analyzer"))
         .args(["--format", "jsn"])
         .output()
         .expect("binary should run");

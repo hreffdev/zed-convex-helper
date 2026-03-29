@@ -1,5 +1,5 @@
-use convex_doctor::diagnostic::{Category, Diagnostic, Severity};
-use convex_doctor::scoring::compute_score;
+use convex_analyzer::diagnostic::{Category, Diagnostic, Severity};
+use convex_analyzer::scoring::compute_score;
 
 fn make_diagnostic(rule: &str, severity: Severity, category: Category) -> Diagnostic {
     Diagnostic {

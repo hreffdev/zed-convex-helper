@@ -1,4 +1,4 @@
-use convex_doctor::project::ProjectInfo;
+use convex_analyzer::project::ProjectInfo;
 use tempfile::TempDir;
 
 #[test]
@@ -50,7 +50,7 @@ fn test_discover_convex_files() {
     std::fs::write(convex_dir.join("_generated/api.d.ts"), "// generated").unwrap();
 
     let info = ProjectInfo::detect(dir.path()).unwrap();
-    let files = info.discover_files(&convex_doctor::config::Config::default());
+    let files = info.discover_files(&convex_analyzer::config::Config::default());
     assert_eq!(files.len(), 2);
     assert!(
         files

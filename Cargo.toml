@@ -1,7 +1,14 @@
 [package]
-name = "zed_convex"
-version = "0.1.0"
+name = "convex_analyzer"
+version = "1.1.0"
 edition = "2024"
+authors = ["hreffdev<haikelareff@gmail.com>"]
+description = "Convex Analyzer development tool for better assists"
+repository = "https://github.com/hreffdev/convex-analyzer"
+
+[workspace]
+members = ["zed"]
+
 
 [dependencies]
 tokio = { version = "1.44", features = [

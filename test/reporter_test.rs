@@ -1,9 +1,9 @@
 use std::time::Duration;
 
-use convex_doctor::diagnostic::{Category, Diagnostic, Severity};
-use convex_doctor::reporter::Reporter;
-use convex_doctor::reporter::json::JsonReporter;
-use convex_doctor::scoring::compute_score;
+use convex_analyzer::diagnostic::{Category, Diagnostic, Severity};
+use convex_analyzer::reporter::Reporter;
+use convex_analyzer::reporter::json::JsonReporter;
+use convex_analyzer::scoring::compute_score;
 
 fn sample_diagnostics() -> Vec<Diagnostic> {
     vec![
@@ -105,7 +105,7 @@ fn test_json_summary_counts_errors_warnings_and_infos() {
 fn test_score_only_output() {
     let diagnostics = sample_diagnostics();
     let score = compute_score(&diagnostics);
-    let output = convex_doctor::reporter::score_only(&score);
+    let output = convex_analyzer::reporter::score_only(&score);
     let parsed: u32 = output.trim().parse().unwrap();
     assert!(parsed <= 100);
 }

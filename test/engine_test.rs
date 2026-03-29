@@ -39,7 +39,7 @@ export const getMessages = query({
     )
     .unwrap();
 
-    let result = convex_doctor::engine::run(dir.path(), false, None).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, None).unwrap();
     assert!(result.score.value < 100);
     assert!(!result.diagnostics.is_empty());
     assert_eq!(result.files_scanned, 1);
@@ -48,14 +48,14 @@ export const getMessages = query({
 #[test]
 fn test_engine_no_convex_dir() {
     let dir = TempDir::new().unwrap();
-    let result = convex_doctor::engine::run(dir.path(), false, None);
+    let result = convex_analyzer::engine::run(dir.path(), false, None);
     assert!(result.is_err());
 }
 
 #[test]
 fn test_get_changed_files_no_git() {
     let dir = TempDir::new().unwrap();
-    let files = convex_doctor::engine::get_changed_files(dir.path(), "main");
+    let files = convex_analyzer::engine::get_changed_files(dir.path(), "main");
     assert!(files.is_err());
 }
 
@@ -82,7 +82,7 @@ export const getMessages = query({
     .unwrap();
     init_git_repo(dir.path());
 
-    let result = convex_doctor::engine::run(dir.path(), false, Some("HEAD")).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, Some("HEAD")).unwrap();
     assert_eq!(
         result.files_scanned, 0,
         "No changed files should be scanned"
@@ -117,7 +117,7 @@ export const getMessages = query({
     std::fs::write(dir.path().join(".gitignore"), ".env*\n").unwrap();
     std::fs::write(dir.path().join(".env.local"), "SECRET=1\n").unwrap();
 
-    let result = convex_doctor::engine::run(dir.path(), false, None).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, None).unwrap();
     assert!(
         !result
             .diagnostics
@@ -146,7 +146,7 @@ export const bad = query({
     )
     .unwrap();
 
-    let result = convex_doctor::engine::run(dir.path(), false, None).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, None).unwrap();
     assert!(
         result
             .diagnostics
@@ -184,7 +184,7 @@ export const getMessages = query({
     )
     .unwrap();
 
-    let result = convex_doctor::engine::run(dir.path(), false, Some("HEAD")).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, Some("HEAD")).unwrap();
     assert_eq!(result.files_scanned, 1);
 }
 
@@ -204,6 +204,6 @@ export const deletedMessage = 1;
     init_git_repo(dir.path());
     std::fs::remove_file(tracked).unwrap();
 
-    let result = convex_doctor::engine::run(dir.path(), false, Some("HEAD")).unwrap();
+    let result = convex_analyzer::engine::run(dir.path(), false, Some("HEAD")).unwrap();
     assert_eq!(result.files_scanned, 0);
 }

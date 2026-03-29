@@ -1,11 +1,11 @@
-use convex_doctor::rules::Rule;
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::security::*;
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::security::*;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
 /// Helper to write TypeScript content to a temp file and analyze it.
-fn analyze_ts(content: &str) -> convex_doctor::rules::FileAnalysis {
+fn analyze_ts(content: &str) -> convex_analyzer::rules::FileAnalysis {
     let mut file = NamedTempFile::with_suffix(".ts").unwrap();
     file.write_all(content.as_bytes()).unwrap();
     file.flush().unwrap();
@@ -42,7 +42,7 @@ export const getDoc = query({
         diags[0].message
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Warning,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Warning,
         "Should be a warning"
     );
 }
@@ -100,7 +100,7 @@ export const webhook = httpAction(async (ctx, request) => {
         diags[0].message
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Error,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Error,
         "Should be an error"
     );
 }
@@ -206,7 +206,7 @@ export const handler = process.env.IS_PROD ? query({
         "Should detect conditional export based on process.env"
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Error,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Error,
         "Should be an error"
     );
 }
@@ -264,7 +264,7 @@ export const updateDoc = mutation({
         diags[0].message
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Warning,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Warning,
         "Should be a warning"
     );
 }
@@ -376,7 +376,7 @@ export const updateDoc = mutation({
         "Should detect ctx.db.patch with raw args"
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Warning,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Warning,
         "Should be a warning"
     );
 }
@@ -447,7 +447,7 @@ export default http;
         diags[0].message
     );
     assert!(
-        diags[0].severity == convex_doctor::diagnostic::Severity::Warning,
+        diags[0].severity == convex_analyzer::diagnostic::Severity::Warning,
         "Should be a warning"
     );
 }

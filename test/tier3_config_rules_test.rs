@@ -1,8 +1,8 @@
-use convex_doctor::diagnostic::Severity;
-use convex_doctor::rules::configuration::{
+use convex_analyzer::diagnostic::Severity;
+use convex_analyzer::rules::configuration::{
     MissingConvexJson, MissingGeneratedCode, MissingTsconfig, OutdatedNodeVersion,
 };
-use convex_doctor::rules::{ProjectContext, Rule};
+use convex_analyzer::rules::{ProjectContext, Rule};
 
 // --- MissingConvexJson ---
 

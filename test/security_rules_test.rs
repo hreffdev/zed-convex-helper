@@ -1,6 +1,6 @@
-use convex_doctor::rules::Rule;
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::security::*;
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::security::*;
 use std::path::Path;
 use tempfile::TempDir;
 

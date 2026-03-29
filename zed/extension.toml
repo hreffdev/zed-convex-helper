@@ -1,0 +1,10 @@
+id = "zed-convex-dev"
+name = "Zed Convex Dev"
+version = "0.1.0"
+schema_version = 1
+authors = ["hreffdev<haikelareff@gmail.com>"]
+description = "Convex Analyzer DevTools for Zed"
+repository = "https://github.com/hreffdev/convex-analyzer"
+
+[context_servers.mcp-server-convex]
+name = "Zed Convex DevTools"

@@ -1,7 +1,7 @@
-use convex_doctor::diagnostic::Severity;
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::performance::*;
-use convex_doctor::rules::{
+use convex_analyzer::diagnostic::Severity;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::performance::*;
+use convex_analyzer::rules::{
     CallLocation, ConvexFunction, CtxCall, FileAnalysis, FunctionKind, IndexDef, ProjectContext,
     Rule, SchemaIdField,
 };
@@ -570,7 +570,7 @@ fn test_rule_ids_are_correct() {
 
 #[test]
 fn test_all_rules_are_performance_category() {
-    use convex_doctor::diagnostic::Category;
+    use convex_analyzer::diagnostic::Category;
     assert_eq!(MissingIndexOnForeignKey.category(), Category::Performance);
     assert_eq!(ActionFromClient.category(), Category::Performance);
     assert_eq!(CollectThenFilter.category(), Category::Performance);

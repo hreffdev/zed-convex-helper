@@ -1,5 +1,5 @@
-use convex_doctor::rules::architecture::*;
-use convex_doctor::rules::{ConvexFunction, FileAnalysis, FunctionKind, Rule};
+use convex_analyzer::rules::architecture::*;
+use convex_analyzer::rules::{ConvexFunction, FileAnalysis, FunctionKind, Rule};
 
 #[test]
 fn test_large_handler_flagged() {

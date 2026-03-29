@@ -4,7 +4,7 @@ use std::time::Duration;
 #[test]
 fn test_e2e_sample_project() {
     let result =
-        convex_doctor::engine::run(Path::new("tests/fixtures/sample_project"), false, None)
+        convex_analyzer::engine::run(Path::new("tests/fixtures/sample_project"), false, None)
             .unwrap();
 
     // Score should be reasonable but not perfect (missing return validators, etc.)
@@ -21,11 +21,11 @@ fn test_e2e_sample_project() {
 
 #[test]
 fn test_e2e_json_output() {
-    use convex_doctor::reporter::Reporter;
-    use convex_doctor::reporter::json::JsonReporter;
+    use convex_analyzer::reporter::Reporter;
+    use convex_analyzer::reporter::json::JsonReporter;
 
     let result =
-        convex_doctor::engine::run(Path::new("tests/fixtures/sample_project"), false, None)
+        convex_analyzer::engine::run(Path::new("tests/fixtures/sample_project"), false, None)
             .unwrap();
 
     let reporter = JsonReporter;

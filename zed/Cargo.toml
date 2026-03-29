@@ -1,0 +1,13 @@
+[package]
+name = "zed-convex-dev"
+version = "0.1.0"
+edition = "2024"
+authors = ["hreffdev<haikelareff@gmail.com>"]
+description = "Convex backend development tools for Zed Editor"
+repository = "https://github.com/hreffdev/convex-analyzer/zed"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "0.7.0"

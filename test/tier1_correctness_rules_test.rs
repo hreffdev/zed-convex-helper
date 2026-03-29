@@ -1,6 +1,6 @@
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::correctness::*;
-use convex_doctor::rules::{ProjectContext, Rule};
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::correctness::*;
+use convex_analyzer::rules::{ProjectContext, Rule};
 use tempfile::TempDir;
 
 // ---------------------------------------------------------------------------
@@ -585,7 +585,7 @@ fn test_generated_code_modified_detected() {
     assert!(diagnostics[0].message.contains("convex/_generated/"));
     assert_eq!(
         diagnostics[0].severity,
-        convex_doctor::diagnostic::Severity::Error
+        convex_analyzer::diagnostic::Severity::Error
     );
 }
 

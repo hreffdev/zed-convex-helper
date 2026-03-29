@@ -1,34 +1,5 @@
 {
 	"lsp": {
-		"tailwindcss-language-server": {
-			"settings": {
-				"experimental": {
-					"classRegex": [
-						"\\.className\\s*[+]?=\\s*['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.setAttributeNS\\(.*,\\s*['\\\"]class['\\\"],\\s*['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.setAttribute\\(['\\\"]class['\\\"],\\s*['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.add\\(['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.remove\\(['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.toggle\\(['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.contains\\(['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.replace\\(\\s*['\\\"]([^'\\\"]*)['\\\"]",
-						"\\.classList\\.replace\\([^,)]+,\\s*['\\\"]([^'\\\"]*)['\\\"]",
-					],
-				},
-			},
-			"initialization_options": {
-				"preferences": {
-					"includeInlayParameterNameHints": "all",
-					"includeInlayParameterNameHintsWhenArgumentMatchesName": true,
-					"includeInlayFunctionParameterTypeHints": true,
-					"includeInlayVariableTypeHints": true,
-					"includeInlayVariableTypeHintsWhenTypeMatchesName": true,
-					"includeInlayPropertyDeclarationTypeHints": true,
-					"includeInlayFunctionLikeReturnTypeHints": true,
-					"includeInlayEnumMemberValueHints": true,
-				},
-			},
-		},
 		"vtsls": {
 			"settings": {
 				"typescript": {

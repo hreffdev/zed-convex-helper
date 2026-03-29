@@ -1,9 +1,9 @@
-use convex_doctor::rules::context::analyze_file;
+use convex_analyzer::rules::context::analyze_file;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
 /// Helper to write TypeScript content to a temp file and analyze it.
-fn analyze_ts(content: &str) -> convex_doctor::rules::FileAnalysis {
+fn analyze_ts(content: &str) -> convex_analyzer::rules::FileAnalysis {
     let mut file = NamedTempFile::with_suffix(".ts").unwrap();
     file.write_all(content.as_bytes()).unwrap();
     file.flush().unwrap();

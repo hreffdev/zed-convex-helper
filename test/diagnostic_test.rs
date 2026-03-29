@@ -1,4 +1,4 @@
-use convex_doctor::diagnostic::{Category, Diagnostic, Severity};
+use convex_analyzer::diagnostic::{Category, Diagnostic, Severity};
 
 #[test]
 fn test_diagnostic_creation() {

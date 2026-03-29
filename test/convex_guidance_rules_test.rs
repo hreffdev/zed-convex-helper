@@ -1,12 +1,12 @@
-use tempfile::TempDir;
-use zed_convex::rules::Rule;
-use zed_convex::rules::context::analyze_file;
-use zed_convex::rules::correctness::{
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::correctness::{
     CronDirectFunctionReference, CronHelperMethodUsage, DeprecatedApi, QueryDeleteUnsupported,
     StorageGetMetadataDeprecated, UnsupportedValidatorType,
 };
-use zed_convex::rules::performance::MissingPaginationOptsValidator;
-use zed_convex::rules::security::MissingArgValidators;
+use convex_analyzer::rules::performance::MissingPaginationOptsValidator;
+use convex_analyzer::rules::security::MissingArgValidators;
+use tempfile::TempDir;
 
 #[test]
 fn test_v_bytes_not_flagged_as_deprecated() {

@@ -1,6 +1,6 @@
+use convex_analyzer::rules::RuleRegistry;
 use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
-use zed_convex::rules::RuleRegistry;
 
 #[derive(Debug, Deserialize)]
 struct CoverageMatrix {

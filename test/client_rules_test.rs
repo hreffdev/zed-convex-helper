@@ -1,11 +1,11 @@
-use convex_doctor::rules::Rule;
-use convex_doctor::rules::client::*;
-use convex_doctor::rules::context::analyze_file;
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::client::*;
+use convex_analyzer::rules::context::analyze_file;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
 /// Helper: write TSX content to a temp file and analyze it.
-fn analyze_tsx(content: &str) -> convex_doctor::rules::FileAnalysis {
+fn analyze_tsx(content: &str) -> convex_analyzer::rules::FileAnalysis {
     let mut file = NamedTempFile::with_suffix(".tsx").unwrap();
     file.write_all(content.as_bytes()).unwrap();
     file.flush().unwrap();
@@ -13,7 +13,7 @@ fn analyze_tsx(content: &str) -> convex_doctor::rules::FileAnalysis {
 }
 
 /// Helper: write TS content to a temp file and analyze it.
-fn analyze_ts(content: &str) -> convex_doctor::rules::FileAnalysis {
+fn analyze_ts(content: &str) -> convex_analyzer::rules::FileAnalysis {
     let mut file = NamedTempFile::with_suffix(".ts").unwrap();
     file.write_all(content.as_bytes()).unwrap();
     file.flush().unwrap();
@@ -391,13 +391,13 @@ export default function Multi() {
 #[test]
 fn mutation_in_render_severity_is_error_when_triggered() {
     // Verify the rule severity via a synthetic FileAnalysis with in_render_body = true.
-    let mut analysis = convex_doctor::rules::FileAnalysis {
+    let mut analysis = convex_analyzer::rules::FileAnalysis {
         file_path: "test.tsx".to_string(),
         ..Default::default()
     };
     analysis
         .convex_hook_calls
-        .push(convex_doctor::rules::ConvexHookCall {
+        .push(convex_analyzer::rules::ConvexHookCall {
             hook_name: "useMutation".to_string(),
             line: 1,
             col: 1,
@@ -407,7 +407,7 @@ fn mutation_in_render_severity_is_error_when_triggered() {
     assert!(!diags.is_empty());
     assert_eq!(
         diags[0].severity,
-        convex_doctor::diagnostic::Severity::Error
+        convex_analyzer::diagnostic::Severity::Error
     );
 }
 
@@ -426,7 +426,7 @@ export default function C() {
     assert!(!diags.is_empty());
     assert_eq!(
         diags[0].severity,
-        convex_doctor::diagnostic::Severity::Warning
+        convex_analyzer::diagnostic::Severity::Warning
     );
 }
 
@@ -443,7 +443,10 @@ export default function C() {
     );
     let diags = ActionInsteadOfMutation.check(&analysis);
     assert!(!diags.is_empty());
-    assert_eq!(diags[0].severity, convex_doctor::diagnostic::Severity::Info);
+    assert_eq!(
+        diags[0].severity,
+        convex_analyzer::diagnostic::Severity::Info
+    );
 }
 
 #[test]
@@ -459,7 +462,10 @@ export default function C() {
     );
     let diags = MissingConvexProvider.check(&analysis);
     assert!(!diags.is_empty());
-    assert_eq!(diags[0].severity, convex_doctor::diagnostic::Severity::Info);
+    assert_eq!(
+        diags[0].severity,
+        convex_analyzer::diagnostic::Severity::Info
+    );
 }
 
 // =========================================================================
@@ -470,19 +476,19 @@ export default function C() {
 fn all_rules_have_client_side_category() {
     assert_eq!(
         MutationInRender.category(),
-        convex_doctor::diagnostic::Category::ClientSide
+        convex_analyzer::diagnostic::Category::ClientSide
     );
     assert_eq!(
         UnhandledLoadingState.category(),
-        convex_doctor::diagnostic::Category::ClientSide
+        convex_analyzer::diagnostic::Category::ClientSide
     );
     assert_eq!(
         ActionInsteadOfMutation.category(),
-        convex_doctor::diagnostic::Category::ClientSide
+        convex_analyzer::diagnostic::Category::ClientSide
     );
     assert_eq!(
         MissingConvexProvider.category(),
-        convex_doctor::diagnostic::Category::ClientSide
+        convex_analyzer::diagnostic::Category::ClientSide
     );
 }
 

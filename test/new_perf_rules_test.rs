@@ -1,6 +1,6 @@
-use convex_doctor::rules::Rule;
-use convex_doctor::rules::context::analyze_file;
-use convex_doctor::rules::performance::*;
+use convex_analyzer::rules::Rule;
+use convex_analyzer::rules::context::analyze_file;
+use convex_analyzer::rules::performance::*;
 use std::path::Path;
 
 #[test]
