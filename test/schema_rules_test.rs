@@ -1,0 +1,177 @@
+use convex_doctor::rules::Rule;
+use convex_doctor::rules::context::analyze_file;
+use convex_doctor::rules::schema::*;
+use std::path::Path;
+use tempfile::TempDir;
+
+#[test]
+fn test_deep_nesting_detected() {
+    let analysis = analyze_file(Path::new("tests/fixtures/schema_patterns.ts")).unwrap();
+    let rule = DeepNesting;
+    let diagnostics = rule.check(&analysis);
+    assert!(
+        !diagnostics.is_empty(),
+        "Should detect deeply nested validators (depth {})",
+        analysis.schema_nesting_depth
+    );
+}
+
+#[test]
+fn test_deep_nesting_not_flagged_for_shallow() {
+    let analysis = analyze_file(Path::new("tests/fixtures/basic_query.ts")).unwrap();
+    let rule = DeepNesting;
+    let diagnostics = rule.check(&analysis);
+    // basic_query.ts has v.array(v.object(...)) which is depth 2, below threshold
+    assert!(
+        diagnostics.is_empty(),
+        "Should not flag nesting depth {} (threshold is 3)",
+        analysis.schema_nesting_depth
+    );
+}
+
+#[test]
+fn test_array_relationships_detected() {
+    let analysis = analyze_file(Path::new("tests/fixtures/schema_patterns.ts")).unwrap();
+    let rule = ArrayRelationships;
+    let diagnostics = rule.check(&analysis);
+    assert!(
+        !diagnostics.is_empty(),
+        "Should detect v.array(v.id(...)) pattern"
+    );
+}
+
+#[test]
+fn test_redundant_index_detected() {
+    let analysis = analyze_file(Path::new("tests/fixtures/schema_patterns.ts")).unwrap();
+    let rule = RedundantIndex;
+    let diagnostics = rule.check(&analysis);
+    assert!(
+        !diagnostics.is_empty(),
+        "Should detect that by_author is a prefix of by_author_title. Found {} index definitions: {:?}",
+        analysis.index_definitions.len(),
+        analysis
+            .index_definitions
+            .iter()
+            .map(|i| format!("{}({:?})", i.name, i.fields))
+            .collect::<Vec<_>>()
+    );
+}
+
+#[test]
+fn test_redundant_index_not_cross_table() {
+    let dir = TempDir::new().unwrap();
+    let schema_path = dir.path().join("schema.ts");
+    std::fs::write(
+        &schema_path,
+        r#"
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  users: defineTable({
+    userId: v.string(),
+    createdAt: v.number(),
+  }).index("by_user", ["userId"]),
+
+  posts: defineTable({
+    userId: v.string(),
+    createdAt: v.number(),
+  }).index("by_user_created", ["userId", "createdAt"]),
+});
+"#,
+    )
+    .unwrap();
+
+    let analysis = analyze_file(&schema_path).unwrap();
+    let rule = RedundantIndex;
+    let diagnostics = rule.check(&analysis);
+    assert!(
+        diagnostics.is_empty(),
+        "Indexes from different tables should not be compared as redundant"
+    );
+}
+
+#[test]
+fn test_redundant_index_detected_with_define_table_alias() {
+    let dir = TempDir::new().unwrap();
+    let schema_path = dir.path().join("schema.ts");
+    std::fs::write(
+        &schema_path,
+        r#"
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+const posts = defineTable({
+  authorId: v.id("users"),
+  title: v.string(),
+});
+
+export default defineSchema({
+  posts: posts
+    .index("by_author", ["authorId"])
+    .index("by_author_title", ["authorId", "title"]),
+});
+"#,
+    )
+    .unwrap();
+
+    let analysis = analyze_file(&schema_path).unwrap();
+    let rule = RedundantIndex;
+    let diagnostics = rule.check(&analysis);
+    assert!(
+        !diagnostics.is_empty(),
+        "Redundant index detection should work when defineTable is aliased to a variable"
+    );
+}
+
+#[test]
+fn test_index_name_includes_fields_detected() {
+    let dir = TempDir::new().unwrap();
+    let schema_path = dir.path().join("schema.ts");
+    std::fs::write(
+        &schema_path,
+        r#"
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  posts: defineTable({
+    authorId: v.id("users"),
+    title: v.string(),
+  }).index("by_author", ["authorId", "title"]),
+});
+"#,
+    )
+    .unwrap();
+
+    let analysis = analyze_file(&schema_path).unwrap();
+    let rule = IndexNameIncludesFields;
+    let diagnostics = rule.check(&analysis);
+    assert_eq!(diagnostics.len(), 1);
+}
+
+#[test]
+fn test_index_name_includes_fields_not_flagged_when_expected_name_used() {
+    let dir = TempDir::new().unwrap();
+    let schema_path = dir.path().join("schema.ts");
+    std::fs::write(
+        &schema_path,
+        r#"
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  posts: defineTable({
+    authorId: v.id("users"),
+    title: v.string(),
+  }).index("by_authorid_and_title", ["authorId", "title"]),
+});
+"#,
+    )
+    .unwrap();
+
+    let analysis = analyze_file(&schema_path).unwrap();
+    let rule = IndexNameIncludesFields;
+    let diagnostics = rule.check(&analysis);
+    assert!(diagnostics.is_empty());
+}
